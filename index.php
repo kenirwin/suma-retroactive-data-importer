@@ -75,7 +75,7 @@ while ($myrow = mysql_fetch_assoc($r)) {
 ?>
 
 
-<form action="sumaimport.php" method="get">
+<form action="index.php" method="get">
 <h4>Time and Date of Data Collection</h4>
    <label for="date">Data collection date</label>
    <input name="date" type="text" id="datepicker" /><br />
