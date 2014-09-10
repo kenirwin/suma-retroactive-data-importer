@@ -2,7 +2,7 @@
 
 **Suma Import Generator** takes form input and output it as JSON-formatted data to be imported into **Suma: A Space Assessment Toolkit** (https://github.com/cazzerson/Suma). 
 
-# Disclaimer
+## Disclaimer
 
 Suma itself is a beautifully-written piece of software written by a handful of coders. This import generator is quick hack *not* written by the Suma team, and does not directly integrate into Suma. Instead, it returns JSON formatted to be compatible with Suma's "Direct JSON Import" function. It could be a lot better, and improvements and contributions would be most welcome.
 
