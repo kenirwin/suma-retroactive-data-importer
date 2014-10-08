@@ -18,11 +18,16 @@ $(document).ready(function() {
     $("select").change(function() {
 	$("#json-output").hide();
 	var initID = $(this).val();
-	$.get("load_fields.php", { initiative: initID })
+	if (initID == "") {
+	  $("#details-form").html("");
+	}
+	else {
+	  $.get("load_fields.php", { initiative: initID })
 	      .done(function(data) {
 		  $("#details-form").html(data); // load form fields
 		  $( "#datepicker" ).datepicker(); //triger datepicker
 		});
+	}
       }); //end on click delete-link
   }); //end document ready
 
