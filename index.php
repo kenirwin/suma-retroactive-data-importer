@@ -1,20 +1,14 @@
 <?
+/*
+  error_reporting(E_ALL);
+  ini_set("display_errors", true);
+*/
 include("connect.php"); //handles mysql_connect session
-
-function SelectInitiative($preset="") {
-  $q="SELECT * FROM `initiative` where `enabled` = 1";
-  $r=mysql_query($q);
-  $opts = " <option value=\"\">Select an initiative</option>\n";
-  while ($myrow=mysql_fetch_assoc($r)) {
-    extract($myrow);
-    $opts.=" <option value=\"$id\">$title</option>\n";
-  } //end while 
-  $select = "<label for=\"initiative\">Initiative</label> <select name=\"initiative\" id=\"initiative-selector\">\n$opts</select>\n";
-  return ($select);
-}
-
+include("scripts.php");
 $device = "manual";
 $version = "1.1.0";
+
+
 ?>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" />
@@ -28,7 +22,6 @@ $version = "1.1.0";
 $(document).ready(function() {
     $("select").change(function() {
 	var initID = $(this).val();
-        alert (initID);
 	$.get("load_fields.php", { initiative: initID })
 	      .done(function(data) {
 		  $("#details-form").html(data);

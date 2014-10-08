@@ -1,16 +1,9 @@
 <?
 require("connect.php");
-$locs = array();
-$location_inputs = "";
+require("scripts.php");
 $initiative = $_REQUEST['initiative'];
-$q = "SELECT * from `location` where enabled = '1' and `fk_parent` = '$initiative'";
-$r = mysql_query($q);
-while ($myrow = mysql_fetch_assoc($r)) {
-  extract($myrow);
-  $locs[$id] = $title;
-  $location_inputs .= "<label for=\"counts[$id]\">$title</label>\n";
-  $location_inputs .= "<input name=\"counts[$id]\" type=\"text\"><br />\n";
-}
+$location_inputs = GetLocations($initiative); 
+$activity_inputs = GetActivities($initiative);
 ?>
 
 
@@ -22,5 +15,6 @@ while ($myrow = mysql_fetch_assoc($r)) {
    <input name="time" type="text" /><br />
 <h4>Counts by location</h4>
    <?=$location_inputs;?>
+<?=$activity_inputs;?>
    <input type="submit" />
 </form>
