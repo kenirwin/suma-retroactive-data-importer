@@ -14,12 +14,9 @@ $version = "1.1.0";
 <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" />
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
  <script>
-   $(function() {
-     });
-
-
 $(document).ready(function() {
     $("select").change(function() {
+	$("#json-output").hide();
 	var initID = $(this).val();
 	$.get("load_fields.php", { initiative: initID })
 	      .done(function(data) {
@@ -86,7 +83,7 @@ print(SelectInitiative($_REQUEST['initative']));
 		    );
 
     
-    print "<form><textarea cols=\"80\" rows=\"25\">";
+    print "<form><textarea id=\"json-output\" cols=\"80\" rows=\"25\">";
     print (json_encode($return, JSON_PRETTY_PRINT));
     print "</textarea></form>";
     print "<hr />\n";
