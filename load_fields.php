@@ -1,6 +1,6 @@
 <?
-require("connect.php");
-require("scripts.php");
+include_once("connect.php");
+include_once("scripts.php");
 $initiative = $_REQUEST['initiative'];
 $location_inputs = GetLocations($initiative); 
 $activity_inputs = GetActivities($initiative);

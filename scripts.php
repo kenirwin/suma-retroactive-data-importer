@@ -23,7 +23,6 @@ function GetLocations($initiative) {
   $locs = array();
   $location_inputs = "";
   $q = "SELECT `location`.`id` as loc_id,`location`.`title` as loc_title from `location`,`initiative` where `location`.`enabled` = '1' and `location`.`fk_parent` = `initiative`.`fk_root_location` and `initiative`.`id` = '$initiative'";
-  print ($q);
   $r = mysql_query($q);
   while ($myrow = mysql_fetch_assoc($r)) {
     extract($myrow);
