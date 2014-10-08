@@ -1,6 +1,18 @@
 <?
 include("connect.php"); //handles mysql_connect session
-$initiative = "1";
+
+function SelectInitiative($preset="") {
+  $q="SELECT * FROM `initiative` where `enabled` = 1";
+  $r=mysql_query($q);
+  $opts = " <option value=\"\">Select an initiative</option>\n";
+  while ($myrow=mysql_fetch_assoc($r)) {
+    extract($myrow);
+    $opts.=" <option value=\"$id\">$title</option>\n";
+  } //end while 
+  $select = "<label for=\"initiative\">Initiative</label> <select name=\"initiative\" id=\"initiative-selector\">\n$opts</select>\n";
+  return ($select);
+}
+
 $device = "manual";
 $version = "1.1.0";
 ?>
@@ -11,25 +23,33 @@ $version = "1.1.0";
    $(function() {
        $( "#datepicker" ).datepicker();
      });
+
+
+$(document).ready(function() {
+    $("select").change(function() {
+	var initID = $(this).val();
+        alert (initID);
+	$.get("load_fields.php", { initiative: initID })
+	      .done(function(data) {
+		  $("#details-form").html(data);
+		});
+      }); //end on click delete-link
+  }); //end document ready
+
 </script>
 
-<?
-$locs = array();
-$location_inputs = "";
-$q = "SELECT * from `location` where enabled = '1' and `fk_parent` = '$initiative'";
-$r = mysql_query($q);
-while ($myrow = mysql_fetch_assoc($r)) {
-  extract($myrow);
-  $locs[$id] = $title;
-  $location_inputs .= "<label for=\"counts[$id]\">$title</label>\n";
-  $location_inputs .= "<input name=\"counts[$id]\" type=\"text\"><br />\n";
-}
 
-?>
+
 
 <h1>Retroactive Suma Import Generator</h1>
 
 <p><a href="https://github.com/cazzerson/Suma/issues/17">Format to Emulate</a></p>
+
+<?
+print(SelectInitiative($_REQUEST['initative']));
+?>
+
+<div id="details-form"></div>
 
 <?
   if ($_REQUEST['date'] && $_REQUEST['time'] && is_array($_REQUEST['counts'])) {
@@ -75,13 +95,3 @@ while ($myrow = mysql_fetch_assoc($r)) {
 ?>
 
 
-<form action="index.php" method="get">
-<h4>Time and Date of Data Collection</h4>
-   <label for="date">Data collection date</label>
-   <input name="date" type="text" id="datepicker" /><br />
-  <label for="time">Data collection time (e.g. "9:30 pm")</label>
-   <input name="time" type="text" /><br />
-<h4>Counts by location</h4>
-   <?=$location_inputs;?>
-   <input type="submit" />
-</form>
