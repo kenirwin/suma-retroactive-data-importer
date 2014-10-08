@@ -3,13 +3,13 @@
   error_reporting(E_ALL);
   ini_set("display_errors", true);
 */
-include("connect.php"); //handles mysql_connect session
-include("scripts.php");
+include_once("connect.php"); //handles mysql_connect session
+include_once("scripts.php");
 $device = "manual";
 $version = "1.1.0";
-
-
 ?>
+<head>
+<title>Suma Import Generator</title>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" />
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
@@ -27,10 +27,17 @@ $(document).ready(function() {
   }); //end document ready
 
 </script>
+<style>
+body { height: 100%; margin: 0; padding: 0; }
+#wrapper { min-height:100%; position: relative }
+#content { padding: 10px; padding-bottom: 80px }
+#footer { position: absolute; bottom: 10; left: 0; height: 80px; padding: 10px}
+</style>
+</head>
 
-
-
-
+<body>
+<div id="wrapper">
+<div id="content">
 <h1>Retroactive Suma Import Generator</h1>
 
 <p><a href="https://github.com/cazzerson/Suma/issues/17">Format to Emulate</a></p>
@@ -89,8 +96,13 @@ print(SelectInitiative($_REQUEST['initative']));
     print "<hr />\n";
 
   } //end if submission
+print "</div><!--id=content-->\n";
 
+print '<div id="footer">';
+include("license.php");
+print "</div><!--id=footer-->\n";
+print "</div><!--id=wrapper-->\n";
 
 ?>
-
+</body>
 
