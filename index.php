@@ -49,17 +49,26 @@ print(SelectInitiative($_REQUEST['initative']));
     $date = $_REQUEST['date'];
     $time = $_REQUEST['time'];
     $counts = $_REQUEST['counts'];
+    $initiative = intval($_REQUEST['initiative']);
     $start = strtotime("$date $time");
     $end = $start + (60*5); //add five minutes
     $temptime = $start; 
     $temp_array = $counts_array = array();
+
+    if ($_REQUEST['activities']) {
+      $activity_info = array();
+      foreach ($_REQUEST['activities'] as $v) {
+	array_push( $activity_info, intval($v));
+      }
+    }
+    else { $activity_info = array ();} 
 
     foreach ($counts as $loc => $ct) {
       $temptime++;
       $temp_array = array ("timestamp" => $temptime,
 			   "number" => intval($ct),
 			   "location" => $loc, 
-			   "activities" => array()
+			   "activities" => $activity_info
 			   );
       
       array_push($counts_array, $temp_array);
