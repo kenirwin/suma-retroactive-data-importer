@@ -19,7 +19,7 @@ function GetActivities($initiative) {
       extract($myrow);
       $opts .= " <option value=\"$id\">$title</option>\n";
     }
-    $activity_inputs .= "<h4>$ag_title</h4><select name=\"activities[]\"$ multi>$opts\n</select>\n";
+    $activity_inputs .= "<h4>$ag_title</h4><select name=\"activities[]\" $multi>$opts\n</select>\n";
     
   } //end while looking up activity groups
   return($activity_inputs);
