@@ -15,7 +15,6 @@ $version = "1.1.0";
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
  <script>
    $(function() {
-       $( "#datepicker" ).datepicker();
      });
 
 
@@ -24,7 +23,8 @@ $(document).ready(function() {
 	var initID = $(this).val();
 	$.get("load_fields.php", { initiative: initID })
 	      .done(function(data) {
-		  $("#details-form").html(data);
+		  $("#details-form").html(data); // load form fields
+		  $( "#datepicker" ).datepicker(); //triger datepicker
 		});
       }); //end on click delete-link
   }); //end document ready
