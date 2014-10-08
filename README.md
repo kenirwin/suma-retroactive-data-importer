@@ -33,8 +33,8 @@ You can see a demo of the import generator at: http://www6.wittenberg.edu/lib/ke
 Because the generator does not actually submit anything to Suma, you may feel free to play with the demo without undue consequences. 
 
 You can see some test output from the demos described above: 
-Demo Data #1: http://www6.wittenberg.edu/lib/ken/sumaimport/index.php?date=09%2F04%2F2014&time=9%3A30pm&counts[3]=5&counts[4]=3&counts[5]=61&counts[6]=24&counts[7]=32 
-Demo Data #2: http://www6.wittenberg.edu/lib/ken/sumaimport/index.php?initiative=3&date=09%2F04%2F2014&time=9%3A30pm&counts[9]=1&activities[]=16&activities[]=19&activities[]=26&activities[]=27
+* Demo Data #1: http://www6.wittenberg.edu/lib/ken/sumaimport/index.php?date=09%2F04%2F2014&time=9%3A30pm&counts[3]=5&counts[4]=3&counts[5]=61&counts[6]=24&counts[7]=32 
+* Demo Data #2: http://www6.wittenberg.edu/lib/ken/sumaimport/index.php?initiative=3&date=09%2F04%2F2014&time=9%3A30pm&counts[9]=1&activities[]=16&activities[]=19&activities[]=26&activities[]=27
 
 ## Credits
 

@@ -25,7 +25,7 @@ $(document).ready(function() {
 	  $.get("load_fields.php", { initiative: initID })
 	      .done(function(data) {
 		  $("#details-form").html(data); // load form fields
-		  $( "#datepicker" ).datepicker(); //triger datepicker
+		  $( "#datepicker" ).datepicker(); //trigger datepicker
 		});
 	}
       }); //end on click delete-link
