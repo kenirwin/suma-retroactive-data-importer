@@ -6,6 +6,12 @@ function GetActivities($initiative) {
   while ($ag_row = mysql_fetch_assoc($r)) {
     extract($ag_row);
     $ag_title = $title;
+    if ($allowMulti == 1) { //allow selection of more than one answer
+      $multi = "multiple";
+    }
+    else {
+      $multi = "";
+    }
     $activity_query = "SELECT * FROM `activity` WHERE `fk_activity_group` = $id and `enabled` = 1 ORDER BY `rank` ASC";
     $activity_r = mysql_query($activity_query);
     $opts = "";
@@ -13,7 +19,7 @@ function GetActivities($initiative) {
       extract($myrow);
       $opts .= " <option value=\"$id\">$title</option>\n";
     }
-    $activity_inputs .= "<h4>$ag_title</h4><select name=\"activities[]\">$opts\n</select>\n";
+    $activity_inputs .= "<h4>$ag_title</h4><select name=\"activities[]\"$ multi>$opts\n</select>\n";
     
   } //end while looking up activity groups
   return($activity_inputs);
