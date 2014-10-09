@@ -12,7 +12,7 @@ See a demo of the Suma Import Generator functionality at: http://www6.wittenberg
 
 ## Installation
 
-Install the Suma Import Generator in a folder *outside* of the main Suma web space. Copy the connect-sample.php file to be connect.php, then configure the connect.php file with information to connect to your Suma MySQL server. 
+Install the Suma Import Generator in a folder *outside* of the main Suma web space. Copy the config-sample.php file to be config.php, then configure the config.php file with information to connect to your Suma MySQL server. 
 
 ## Usage
 
