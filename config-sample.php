@@ -4,7 +4,7 @@ $device = "manual";
 $version = "1.1.0";
 
 /* Debugging variables */
-$debug = true; //false; // set to true to get PHP's native error messages
+$debug = false; //false; // set to true to get PHP's native error messages
 $debug_level = E_ALL; // you can change the error reporting level
 
 /* MySQL connect variables */
