@@ -42,13 +42,13 @@ body { height: 100%; margin: 0; padding: 0; }
 <p><a href="https://github.com/cazzerson/Suma/issues/17">JSON Format to Emulate</a></p>
 
 <?php
-print(SelectInitiative($_REQUEST['initative']));
+  print(SelectInitiative());
 ?>
 
 <div id="details-form"></div>
 
 <?php
-  if ($_REQUEST['date'] && $_REQUEST['time'] && is_array($_REQUEST['counts'])) {
+  if (isset($_REQUEST['date']) && isset($_REQUEST['time']) && is_array($_REQUEST['counts'])) {
     $date = $_REQUEST['date'];
     $time = $_REQUEST['time'];
     $counts = $_REQUEST['counts'];

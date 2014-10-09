@@ -10,6 +10,7 @@ function Debug ($level = E_ALL) {
 
 
 function GetActivities($initiative) {
+  $activity_inputs = "";
   $q = "SELECT * FROM `activity_group` WHERE `fk_initiative` = '$initiative'";
   $r = mysql_query($q); 
   while ($ag_row = mysql_fetch_assoc($r)) {
@@ -31,7 +32,9 @@ function GetActivities($initiative) {
     $activity_inputs .= "<h4>$ag_title</h4><select name=\"activities[]\" $multi>$opts\n</select>\n";
     
   } //end while looking up activity groups
-  return($activity_inputs);
+  if (isset($activity_inputs)) {
+    return($activity_inputs);
+  }
 } //end function GetActivities
 
 function GetLocations($initiative) {
@@ -49,7 +52,7 @@ function GetLocations($initiative) {
 } //end function GetLocations
 
 
-function SelectInitiative($preset="") {
+function SelectInitiative() {
   $q="SELECT * FROM `initiative` where `enabled` = 1";
   $r=mysql_query($q);
   $opts = " <option value=\"\">Select an initiative</option>\n";
