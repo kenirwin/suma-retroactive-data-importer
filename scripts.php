@@ -1,5 +1,14 @@
 <?php
 
+  // if config $debug is true, turn it on
+if ($debug) { Debug ($debug_level); } 
+
+function Debug ($level = E_ALL) {
+  error_reporting($level);
+  ini_set("display_errors", true);
+}
+
+
 function GetActivities($initiative) {
   $q = "SELECT * FROM `activity_group` WHERE `fk_initiative` = '$initiative'";
   $r = mysql_query($q); 
