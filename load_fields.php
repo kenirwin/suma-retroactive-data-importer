@@ -17,5 +17,5 @@ $activity_inputs = GetActivities($initiative);
 <h4>Counts by location</h4>
     <?php echo($location_inputs); ?>
 <?php echo($activity_inputs);?>
-   <input type="submit" />
+<br />   <input type="submit" />
 </form>
