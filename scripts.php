@@ -41,7 +41,6 @@ function GetLocations($initiative) {
 
 
 function SelectInitiative($preset="") {
-  include_once("connect.php");
   $q="SELECT * FROM `initiative` where `enabled` = 1";
   $r=mysql_query($q);
   $opts = " <option value=\"\">Select an initiative</option>\n";

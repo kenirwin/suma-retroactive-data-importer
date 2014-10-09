@@ -1,5 +1,5 @@
 <?php
-include_once("connect.php");
+include_once("config.php");
 include_once("scripts.php");
 $initiative = $_REQUEST['initiative'];
 $location_inputs = GetLocations($initiative); 

@@ -3,7 +3,7 @@
   error_reporting(E_ALL);
   ini_set("display_errors", true);
 */
-include_once("connect.php"); //handles mysql_connect session
+include_once("config.php"); //handles mysql_connect session
 include_once("scripts.php");
 $device = "manual";
 $version = "1.1.0";
