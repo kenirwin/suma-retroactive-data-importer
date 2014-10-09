@@ -1,4 +1,4 @@
-<?
+<?php
 /*
   error_reporting(E_ALL);
   ini_set("display_errors", true);
@@ -45,15 +45,15 @@ body { height: 100%; margin: 0; padding: 0; }
 <div id="content">
 <h1>Retroactive Suma Import Generator</h1>
 
-<p><a href="https://github.com/cazzerson/Suma/issues/17">Format to Emulate</a></p>
+<p><a href="https://github.com/cazzerson/Suma/issues/17">JSON Format to Emulate</a></p>
 
-<?
+<?php
 print(SelectInitiative($_REQUEST['initative']));
 ?>
 
 <div id="details-form"></div>
 
-<?
+<?php
   if ($_REQUEST['date'] && $_REQUEST['time'] && is_array($_REQUEST['counts'])) {
     $date = $_REQUEST['date'];
     $time = $_REQUEST['time'];

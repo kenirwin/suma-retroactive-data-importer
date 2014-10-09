@@ -1,4 +1,4 @@
-<?
+<?php
 
 function GetActivities($initiative) {
   $q = "SELECT * FROM `activity_group` WHERE `fk_initiative` = '$initiative'";
