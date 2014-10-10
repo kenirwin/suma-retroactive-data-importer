@@ -8,7 +8,7 @@ Suma itself is a beautifully-written piece of software written by a handful of c
 
 ## Demo
 
-See a demo of the Suma Import Generator functionality at: http://www6.wittenberg.edu/lib/ken/sumaimport
+See a demo of the Suma Import Generator functionality at: http://www6.wittenberg.edu/lib/ken/demo/suma-import-generator
 
 ## Installation
 
