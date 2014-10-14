@@ -66,7 +66,7 @@ body { height: 100%; margin: 0; padding: 0; }
     $temptime = $start; 
     $temp_array = $counts_array = array();
 
-    if ($_REQUEST['activities']) {
+    if (isset($_REQUEST['activities'])) {
       $activity_info = array();
       foreach ($_REQUEST['activities'] as $v) {
 	array_push( $activity_info, intval($v));
