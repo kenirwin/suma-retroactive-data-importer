@@ -20,6 +20,9 @@ $(document).ready(function() {
 	      .done(function(data) {
 		  $("#details-form").html(data); // load form fields
 		  $("#datepicker").datepicker(); //trigger datepicker
+
+		  // for counts with more than one location, display 
+		  // sum of all location counts
 		  $(".counts").bind("keyup", function () {
 		      var total = 0;
 		      $(".counts").each(function(e) {
@@ -28,9 +31,10 @@ $(document).ready(function() {
 			}); //end each count
 		      $("#sum-counts").html(total);
 		    }); //end keyup
-		});
-	}
-      }); //end on click delete-link
+
+		}); //end js-actions on successful AJAX load
+	} //end else if there's an initiative ID
+      }); //end on selection of initiative from pulldown
   }); //end document ready
 
 </script>

@@ -16,7 +16,6 @@ $activity_inputs = GetActivities($initiative);
    <input name="time" type="text" /><br />
 <h4>Counts by location</h4>
     <?php echo($location_inputs); ?>
-<div id="display-counts">Total Counts: <span id="sum-counts"></span></div>
 <?php echo($activity_inputs);?>
 <br />   <input type="submit" />
 </form>

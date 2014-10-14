@@ -42,12 +42,17 @@ function GetLocations($initiative) {
   $location_inputs = "";
   $q = "SELECT `location`.`id` as loc_id,`location`.`title` as loc_title from `location`,`initiative` where `location`.`enabled` = '1' and `location`.`fk_parent` = `initiative`.`fk_root_location` and `initiative`.`id` = '$initiative'";
   $r = mysql_query($q);
+  $field_count = mysql_num_rows($r);
   while ($myrow = mysql_fetch_assoc($r)) {
     extract($myrow);
     $locs[$loc_id] = $loc_title;
     $location_inputs .= "<label for=\"counts[$loc_id]\">$loc_title</label>\n";
     $location_inputs .= "<input name=\"counts[$loc_id]\" type=\"text\" class=\"counts\"><br />\n";
   } //end while locations
+  if ($field_count > 1) {
+    $location_inputs .= '<div id="display-counts">Total Counts: <span id="sum-counts"></span></div>'; 
+      }
+
   return($location_inputs);
 } //end function GetLocations
 
