@@ -46,7 +46,7 @@ function GetLocations($initiative) {
     extract($myrow);
     $locs[$loc_id] = $loc_title;
     $location_inputs .= "<label for=\"counts[$loc_id]\">$loc_title</label>\n";
-    $location_inputs .= "<input name=\"counts[$loc_id]\" type=\"text\"><br />\n";
+    $location_inputs .= "<input name=\"counts[$loc_id]\" type=\"text\" class=\"counts\"><br />\n";
   } //end while locations
   return($location_inputs);
 } //end function GetLocations

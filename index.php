@@ -19,7 +19,15 @@ $(document).ready(function() {
 	  $.get("load_fields.php", { initiative: initID })
 	      .done(function(data) {
 		  $("#details-form").html(data); // load form fields
-		  $( "#datepicker" ).datepicker(); //trigger datepicker
+		  $("#datepicker").datepicker(); //trigger datepicker
+		  $(".counts").bind("keyup", function () {
+		      var total = 0;
+		      $(".counts").each(function(e) {
+			  tmpVal = $(this).val();
+			  total += Number(tmpVal);
+			}); //end each count
+		      $("#sum-counts").html(total);
+		    }); //end keyup
 		});
 	}
       }); //end on click delete-link
