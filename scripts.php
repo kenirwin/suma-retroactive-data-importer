@@ -8,6 +8,23 @@ function Debug ($level = E_ALL) {
   ini_set("display_errors", true);
 }
 
+function GenerateOneSession($initiative,$start,$counts,$activity_info=array()) {
+  $temptime = $start; 
+  $temp_array = $counts_array = array();
+  
+  foreach ($counts as $loc => $ct) {
+    $temptime++;
+    $temp_array = array ("timestamp" => $temptime,
+			 "number" => intval($ct),
+			 "location" => $loc, 
+			 "activities" => $activity_info
+			 );
+    
+    array_push($counts_array, $temp_array);
+  } //end foreach $counts
+  return $counts_array;
+} //end function GenerateOneSession
+
 
 function GetActivities($initiative) {
   $activity_inputs = "";

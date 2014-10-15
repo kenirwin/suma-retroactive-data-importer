@@ -63,12 +63,10 @@ body { height: 100%; margin: 0; padding: 0; }
   if (isset($_REQUEST['date']) && isset($_REQUEST['time']) && is_array($_REQUEST['counts'])) {
     $date = $_REQUEST['date'];
     $time = $_REQUEST['time'];
-    $counts = $_REQUEST['counts'];
-    $initiative = intval($_REQUEST['initiative']);
     $start = strtotime("$date $time");
     $end = $start + (60*5); //add five minutes
-    $temptime = $start; 
-    $temp_array = $counts_array = array();
+    $counts = $_REQUEST['counts'];
+    $initiative = intval($_REQUEST['initiative']);
 
     if (isset($_REQUEST['activities'])) {
       $activity_info = array();
@@ -78,16 +76,8 @@ body { height: 100%; margin: 0; padding: 0; }
     }
     else { $activity_info = array ();} 
 
-    foreach ($counts as $loc => $ct) {
-      $temptime++;
-      $temp_array = array ("timestamp" => $temptime,
-			   "number" => intval($ct),
-			   "location" => $loc, 
-			   "activities" => $activity_info
-			   );
-      
-      array_push($counts_array, $temp_array);
-    }
+    $counts_array = GenerateOneSession($initiative, $start, $counts, $activity_info);
+
     $sessions_array = array ("initiativeID" => $initiative,
 				 "startTime" => $start,
 				 "endTime" => $end,
