@@ -8,7 +8,20 @@ function Debug ($level = E_ALL) {
   ini_set("display_errors", true);
 }
 
-function GenerateOneSession($initiative,$start,$counts,$activity_info=array()) {
+function GenerateJSON($sessions_all) {
+  global $device, $version;
+  $return = array("device" => $device,
+		  "version" => $version,
+		  "sessions" => $sessions_all
+		  );
+  
+  return(json_encode($return, JSON_PRETTY_PRINT));
+} //end function GenerateJSON
+
+    
+
+
+function GenerateOneSession($initiative,$start,$end,$counts,$activity_info=array()) {
   $temptime = $start; 
   $temp_array = $counts_array = array();
   
@@ -22,7 +35,16 @@ function GenerateOneSession($initiative,$start,$counts,$activity_info=array()) {
     
     array_push($counts_array, $temp_array);
   } //end foreach $counts
-  return $counts_array;
+
+  $session_array = array ("initiativeID" => $initiative,
+			  "startTime" => $start,
+			  "endTime" => $end,
+			  "counts" => $counts_array
+				 );
+
+
+
+  return $session_array;
 } //end function GenerateOneSession
 
 

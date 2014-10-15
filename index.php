@@ -77,24 +77,12 @@ body { height: 100%; margin: 0; padding: 0; }
     }
     else { $activity_info = array ();} 
 
-    $counts_array = GenerateOneSession($initiative, $start, $counts, $activity_info);
-
-    $session_array = array ("initiativeID" => $initiative,
-				 "startTime" => $start,
-				 "endTime" => $end,
-				 "counts" => $counts_array
-				 );
-
+    $session_array = GenerateOneSession($initiative, $start, $end, $counts, $activity_info);
+    
     array_push ($sessions_all, $session_array);
 
-    $return = array("device" => $device,
-		    "version" => $version,
-		    "sessions" => $sessions_all
-		    );
-
-    
     print "<form><textarea id=\"json-output\" cols=\"80\" rows=\"25\">";
-    print (json_encode($return, JSON_PRETTY_PRINT));
+    print (GenerateJSON($sessions_all));
     print "</textarea></form>";
     print "<hr />\n";
 
