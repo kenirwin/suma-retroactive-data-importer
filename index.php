@@ -61,6 +61,7 @@ body { height: 100%; margin: 0; padding: 0; }
 
 <?php
   if (isset($_REQUEST['date']) && isset($_REQUEST['time']) && is_array($_REQUEST['counts'])) {
+    $sessions_all = array();
     $date = $_REQUEST['date'];
     $time = $_REQUEST['time'];
     $start = strtotime("$date $time");
@@ -78,16 +79,17 @@ body { height: 100%; margin: 0; padding: 0; }
 
     $counts_array = GenerateOneSession($initiative, $start, $counts, $activity_info);
 
-    $sessions_array = array ("initiativeID" => $initiative,
+    $session_array = array ("initiativeID" => $initiative,
 				 "startTime" => $start,
 				 "endTime" => $end,
 				 "counts" => $counts_array
 				 );
-    $sessions_meta = array ($sessions_array);//wrap in what will be an object
+
+    array_push ($sessions_all, $session_array);
 
     $return = array("device" => $device,
 		    "version" => $version,
-		    "sessions" => $sessions_meta
+		    "sessions" => $sessions_all
 		    );
 
     
