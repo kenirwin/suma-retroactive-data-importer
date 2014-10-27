@@ -14,6 +14,21 @@ See a demo of the Suma Import Generator functionality at: http://www6.wittenberg
 
 Install the Suma Import Generator in a folder *outside* of the main Suma web space. Copy the config-sample.php file to be config.php, then configure the config.php file with information to connect to your Suma MySQL server. 
 
+### Suma Server Security
+
+This program takes advantage of the fact that Suma allows submission of JSON-formatted requests directly via an HTTP call. It would be wise, though not strictly necessary, to restrict Suma Server access. To do this, add a few lines to the .htaccess directory:
+```
+# ALLOW USER BY IP
+<Limit GET POST>
+ order deny,allow
+ deny from all
+ allow from YOUR.LOCAL.IP.ADDRESS
+</Limit>
+```
+
+The sumaserver URL needs to be accessible by the web/tablet client as well, so if you can use an IP range to identify several allowable sources of input, you can format the IP address as xxx.xxx instead of xxx.xxx.xxx.xxx
+
+
 ## Usage
 
 This tool is set up to take head-count data from essentially a single moment / a few minutes from multiple locations. Suma allows many different kinds of counts and this import generator may not support all of them. This tool is currently set up to support:
