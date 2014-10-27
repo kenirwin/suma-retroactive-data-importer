@@ -81,9 +81,10 @@ body { height: 100%; margin: 0; padding: 0; }
     
     array_push ($sessions_all, $session_array);
 
-    print "<form><textarea id=\"json-output\" cols=\"80\" rows=\"25\">";
+    print "<form action=\"$sumaserver_url/sync\" method=\"POST\"><textarea name=\"json\" id=\"json-output\" cols=\"80\" rows=\"25\">";
     print (GenerateJSON($sessions_all));
-    print "</textarea></form>";
+    print "</textarea><br />\n";
+    print "<input type=\"submit\" value=\"Submit data to Suma\"></form>";
     print "<hr />\n";
 
   } //end if submission
