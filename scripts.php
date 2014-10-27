@@ -8,14 +8,19 @@ function Debug ($level = E_ALL) {
   ini_set("display_errors", true);
 }
 
-function GenerateJSON($sessions_all) {
+function GenerateJSON($sessions_all, $pretty=true) {
   global $device, $version;
   $return = array("device" => $device,
 		  "version" => $version,
 		  "sessions" => $sessions_all
 		  );
   
-  return(json_encode($return, JSON_PRETTY_PRINT));
+  if ($pretty == true) {
+    return(json_encode($return, JSON_PRETTY_PRINT));
+  }
+  else {
+    return(json_encode($return));
+  }
 } //end function GenerateJSON
 
     
