@@ -1,3 +1,3 @@
 <?php
-$importgenerator_version = "1.1.2";
+$importgenerator_version = "2.0.a.dev";
 ?>
