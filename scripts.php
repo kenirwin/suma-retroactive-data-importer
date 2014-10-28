@@ -108,14 +108,16 @@ function GetLocations($initiative) {
 
 
 function SelectInitiative() {
-  $q="SELECT * FROM `initiative` where `enabled` = 1";
-  $r=mysql_query($q);
+  global $sumaserver_url; 
+  $url = $sumaserver_url . "/query/initiatives";
+  $response = json_decode(file_get_contents($url));
+  
   $opts = " <option value=\"\">Select an initiative</option>\n";
-  while ($myrow=mysql_fetch_assoc($r)) {
-    extract($myrow);
-    $opts.=" <option value=\"$id\">$title</option>\n";
-  } //end while 
+  foreach ($response as $init) {
+    $opts.=' <option value="'. $init->id .'">'. $init->title .'</option>\n';
+  }
   $select = "<label for=\"initiative\">Initiative</label> <select name=\"initiative\" id=\"initiative-selector\">\n$opts</select>\n";
+  
   return ($select);
 } //end function SelectInitiative
 
