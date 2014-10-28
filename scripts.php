@@ -133,10 +133,11 @@ function SelectInitiative() {
 
 function DisplayJSONOutput ($sessions_all) {
   global $sumaserver_url;
-  print "<form action=\"$sumaserver_url/sync\" method=\"POST\"><textarea name=\"json\" id=\"json-output\" cols=\"80\" rows=\"25\">";
+  //  print "<form action=\"$sumaserver_url/sync\" method=\"POST\">";
+  print "<textarea name=\"json\" id=\"json-output\" cols=\"80\" rows=\"25\">";
   print (GenerateJSON($sessions_all));
   print "</textarea><br />\n";
-  print "<input type=\"submit\" value=\"Submit data to Suma\"></form>";
+//  print "<input type=\"submit\" value=\"Submit data to Suma\"></form>";
   print "<hr />\n";
 }
 

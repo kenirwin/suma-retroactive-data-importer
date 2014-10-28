@@ -10,7 +10,7 @@ include_once("scripts.php");
  <script>
 $(document).ready(function() {
     $("select").change(function() {
-	$("#json-output").hide();
+	$("#submission-response").hide();
 	var initID = $(this).val();
 	if (initID == "") {
 	  $("#details-form").html("");
@@ -80,13 +80,15 @@ body { height: 100%; margin: 0; padding: 0; }
     $session_array = GenerateOneSession($initiative, $start, $end, $counts, $activity_info);
     
     array_push ($sessions_all, $session_array);
-
+    
+    print '<div id="submission-response">';
     if ($allow_direct_submit) { 
       SubmitJSON ($sessions_all);
     }
     else {
       DisplayJSONOutput ($sessions_all);
     }
+    print '</div><!-- id=submission-response -->';
   } //end if submission
 print "</div><!--id=content-->\n";
 
