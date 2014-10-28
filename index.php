@@ -80,35 +80,13 @@ body { height: 100%; margin: 0; padding: 0; }
     $session_array = GenerateOneSession($initiative, $start, $end, $counts, $activity_info);
     
     array_push ($sessions_all, $session_array);
-    /*
-    print "<form action=\"$sumaserver_url/sync\" method=\"POST\"><textarea name=\"json\" id=\"json-output\" cols=\"80\" rows=\"25\">";
-    print (GenerateJSON($sessions_all));
-    print "</textarea><br />\n";
-    print "<input type=\"submit\" value=\"Submit data to Suma\"></form>";
-    print "<hr />\n";
-    */
 
-    $url = "$sumaserver_url/sync";
-    $json = GenerateJSON($sessions_all,false);
-    $data = array ("json" => $json);
-    $options = array(
-		     'http' => array(
-                                 'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-                                 'method'  => 'POST',
-                                 'content' => http_build_query($data),
-				     ),
-		     );
-    $context  = stream_context_create($options);
-    $result = file_get_contents($url, false, $context);
-
-    if (preg_match("/Transaction Complete/", $result)) { 
-      print "<h4>Submission Successful</h4>\n";
+    if ($allow_direct_submit) { 
+      SubmitJSON ($sessions_all);
     }
-    else { 
-      print "<h4>Submission Failed</h4>\n";
-      print "<p>Details: $result</p>\n";
+    else {
+      DisplayJSONOutput ($sessions_all);
     }
-
   } //end if submission
 print "</div><!--id=content-->\n";
 

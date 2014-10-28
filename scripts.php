@@ -126,4 +126,38 @@ function SelectInitiative() {
   return ($select);
 } //end function SelectInitiative
 
+function DisplayJSONOutput ($sessions_all) {
+  print "<form action=\"$sumaserver_url/sync\" method=\"POST\"><textarea name=\"json\" id=\"json-output\" cols=\"80\" rows=\"25\">";
+  print (GenerateJSON($sessions_all));
+  print "</textarea><br />\n";
+  print "<input type=\"submit\" value=\"Submit data to Suma\"></form>";
+  print "<hr />\n";
+}
+
+
+function SubmitJSON ($sessions_all) {
+  $url = "$sumaserver_url/sync";
+  $json = GenerateJSON($sessions_all,false);
+  $data = array ("json" => $json);
+  $options = array(
+		   'http' => array(
+				   'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+				   'method'  => 'POST',
+				   'content' => http_build_query($data),
+				   ),
+		   );
+  $context  = stream_context_create($options);
+  $result = file_get_contents($url, false, $context);
+  
+  if (preg_match("/Transaction Complete/", $result)) { 
+    print "<h4>Submission Successful</h4>\n";
+  }
+  else { 
+    print "<h4>Submission Failed</h4>\n";
+    print "<p>Details: $result</p>\n";
+  }
+} //end function SubmitJSON
+
+
+
 ?>
