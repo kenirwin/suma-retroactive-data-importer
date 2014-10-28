@@ -43,6 +43,7 @@ body { height: 100%; margin: 0; padding: 0; }
 #wrapper { min-height:100%; position: relative }
 #content { padding: 10px; padding-bottom: 80px }
 #footer { position: absolute; bottom: 10; left: 0; height: 80px; padding: 10px}
+.alert { border: 3px solid red; padding: .15em .5em; border-radius: 1em; margin: .5em}
 </style>
 </head>
 
@@ -50,8 +51,6 @@ body { height: 100%; margin: 0; padding: 0; }
 <div id="wrapper">
 <div id="content">
 <h1>Retroactive Suma Import Generator</h1>
-
-<p><a href="https://github.com/cazzerson/Suma/issues/17">JSON Format to Emulate</a></p>
 
 <?php
   print(SelectInitiative());
