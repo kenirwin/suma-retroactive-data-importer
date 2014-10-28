@@ -1,11 +1,37 @@
 <?php
 
+  /*
+list of functions:
+    
+function Debug ($level = E_ALL) 
+function DisplayJSONOutput ($sessions_all) 
+function GenerateJSON($sessions_all, $pretty=true) 
+function GenerateOneSession($initiative,$start,$end,$counts,$activity_info=array()) 
+function GetFormFields ($init) 
+function GetLocationInputs($init) 
+function GetActivityInputs($init) 
+function HandleSubmission () 
+function SelectInitiative() 
+function SubmitJSON ($sessions_all) 
+  */
+
+
   // if config $debug is true, turn it on
 if ($debug) { Debug ($debug_level); } 
 
 function Debug ($level = E_ALL) {
   error_reporting($level);
   ini_set("display_errors", true);
+}
+
+function DisplayJSONOutput ($sessions_all) {
+  global $sumaserver_url;
+  //  print "<form action=\"$sumaserver_url/sync\" method=\"POST\">";
+  print "<textarea name=\"json\" id=\"json-output\" cols=\"80\" rows=\"25\">";
+  print (GenerateJSON($sessions_all));
+  print "</textarea><br />\n";
+//  print "<input type=\"submit\" value=\"Submit data to Suma\"></form>";
+  print "<hr />\n";
 }
 
 function GenerateJSON($sessions_all, $pretty=true) {
@@ -53,16 +79,16 @@ function GenerateOneSession($initiative,$start,$end,$counts,$activity_info=array
 } //end function GenerateOneSession
 
 
-function GetFormFields ($id) {
+function GetFormFields ($init) {
   global $sumaserver_url;
   $url = $sumaserver_url . "/query/initiatives";
   $response = json_decode(file_get_contents($url));
 
-  foreach ($response as $init) { //look at all initiatives
-    if ($init->id == $id) { //only get locations and activities from the right id
+  foreach ($response as $initiative) { //look at all initiatives
+    if ($initiative->id == $init) { //only get locations and activities from the right id
       $fields = array();
-      $fields['locations'] = GetLocationInputs($init);
-      $fields['activities'] = GetActivityInputs($init);
+      $fields['locations'] = GetLocationInputs($initiative);
+      $fields['activities'] = GetActivityInputs($initiative);
       return $fields;
     } //end if correct initiative
   } //end foreach initiative
@@ -115,7 +141,37 @@ function GetActivityInputs($init) {
 } //end function GetActivityInputs
 
 
-
+function HandleSubmission () {
+  global $allow_direct_submit;
+  $sessions_all = array();
+  $date = $_REQUEST['date'];
+  $time = $_REQUEST['time'];
+  $start = strtotime("$date $time");
+  $end = $start + (60*5); //add five minutes
+  $counts = $_REQUEST['counts'];
+  $initiative = intval($_REQUEST['initiative']);
+  
+  if (isset($_REQUEST['activities'])) {
+    $activity_info = array();
+    foreach ($_REQUEST['activities'] as $v) {
+      array_push( $activity_info, intval($v));
+    }
+  }
+  else { $activity_info = array ();} 
+  
+  $session_array = GenerateOneSession($initiative, $start, $end, $counts, $activity_info);
+  
+  array_push ($sessions_all, $session_array);
+  
+  print '<div id="submission-response">';
+  if ($allow_direct_submit) { 
+    SubmitJSON ($sessions_all);
+  }
+  else {
+    DisplayJSONOutput ($sessions_all);
+  }
+  print '</div><!-- id=submission-response -->';
+} //end function HandleSubmission
 
 function SelectInitiative() {
   global $sumaserver_url; 
@@ -130,17 +186,6 @@ function SelectInitiative() {
   
   return ($select);
 } //end function SelectInitiative
-
-function DisplayJSONOutput ($sessions_all) {
-  global $sumaserver_url;
-  //  print "<form action=\"$sumaserver_url/sync\" method=\"POST\">";
-  print "<textarea name=\"json\" id=\"json-output\" cols=\"80\" rows=\"25\">";
-  print (GenerateJSON($sessions_all));
-  print "</textarea><br />\n";
-//  print "<input type=\"submit\" value=\"Submit data to Suma\"></form>";
-  print "<hr />\n";
-}
-
 
 function SubmitJSON ($sessions_all) {
   global $sumaserver_url;

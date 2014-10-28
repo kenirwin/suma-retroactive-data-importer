@@ -61,34 +61,7 @@ body { height: 100%; margin: 0; padding: 0; }
 
 <?php
   if (isset($_REQUEST['date']) && isset($_REQUEST['time']) && is_array($_REQUEST['counts'])) {
-    $sessions_all = array();
-    $date = $_REQUEST['date'];
-    $time = $_REQUEST['time'];
-    $start = strtotime("$date $time");
-    $end = $start + (60*5); //add five minutes
-    $counts = $_REQUEST['counts'];
-    $initiative = intval($_REQUEST['initiative']);
-
-    if (isset($_REQUEST['activities'])) {
-      $activity_info = array();
-      foreach ($_REQUEST['activities'] as $v) {
-	array_push( $activity_info, intval($v));
-      }
-    }
-    else { $activity_info = array ();} 
-
-    $session_array = GenerateOneSession($initiative, $start, $end, $counts, $activity_info);
-    
-    array_push ($sessions_all, $session_array);
-    
-    print '<div id="submission-response">';
-    if ($allow_direct_submit) { 
-      SubmitJSON ($sessions_all);
-    }
-    else {
-      DisplayJSONOutput ($sessions_all);
-    }
-    print '</div><!-- id=submission-response -->';
+    HandleSubmission();
   } //end if submission
 print "</div><!--id=content-->\n";
 
