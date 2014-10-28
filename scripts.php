@@ -70,11 +70,16 @@ function GetFormFields ($id) {
 
 function GetLocationInputs($init) {
   $location_inputs = "";
+  $field_count = 0;
   // Get location info
   foreach ($init->dictionary->locations as $loc) { 
     $location_inputs .= '<label for="counts[' . $loc->id .']">'. $loc->title .'</label>' . PHP_EOL;
     $location_inputs .= '<input name="counts[' . $loc->id .']" type="text" class="counts"><br />' . PHP_EOL;
+    $field_count++;
   } //end foreach location
+  if ($field_count > 1) {
+    $location_inputs .= '<div id="display-counts">Total Counts: <span id="sum-counts"></span></div>'. PHP_EOL;
+  } //end if more than one location field
   return $location_inputs;
 }
 
@@ -127,6 +132,7 @@ function SelectInitiative() {
 } //end function SelectInitiative
 
 function DisplayJSONOutput ($sessions_all) {
+  global $sumaserver_url;
   print "<form action=\"$sumaserver_url/sync\" method=\"POST\"><textarea name=\"json\" id=\"json-output\" cols=\"80\" rows=\"25\">";
   print (GenerateJSON($sessions_all));
   print "</textarea><br />\n";
@@ -136,6 +142,7 @@ function DisplayJSONOutput ($sessions_all) {
 
 
 function SubmitJSON ($sessions_all) {
+  global $sumaserver_url;
   $url = "$sumaserver_url/sync";
   $json = GenerateJSON($sessions_all,false);
   $data = array ("json" => $json);
