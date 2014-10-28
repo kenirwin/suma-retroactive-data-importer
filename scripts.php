@@ -53,58 +53,63 @@ function GenerateOneSession($initiative,$start,$end,$counts,$activity_info=array
 } //end function GenerateOneSession
 
 
-function GetActivities($initiative) {
-  $activity_inputs = "";
-  $q = "SELECT * FROM `activity_group` WHERE `fk_initiative` = '$initiative'";
-  $r = mysql_query($q); 
-  while ($ag_row = mysql_fetch_assoc($r)) {
-    extract($ag_row);
-    $ag_title = $title;
-    if ($allowMulti == 1) { //allow selection of more than one answer
-      $multi = "multiple";
-    }
-    else {
-      $multi = "";
-    }
-    $activity_query = "SELECT * FROM `activity` WHERE `fk_activity_group` = $id and `enabled` = 1 ORDER BY `rank` ASC";
-    $activity_r = mysql_query($activity_query);
-    $opts = "";
-    while ($myrow = mysql_fetch_assoc($activity_r)) {
-      extract($myrow);
-      $opts .= " <option value=\"$id\">$title</option>\n";
-    }
-    $activity_inputs .= "<h4>$ag_title</h4><select name=\"activities[]\" $multi>$opts\n</select>\n";
-    
-  } //end while looking up activity groups
-  if (isset($activity_inputs)) {
-    return($activity_inputs);
-  }
-} //end function GetActivities
+function GetFormFields ($id) {
+  global $sumaserver_url;
+  $url = $sumaserver_url . "/query/initiatives";
+  $response = json_decode(file_get_contents($url));
 
+  foreach ($response as $init) { //look at all initiatives
+    if ($init->id == $id) { //only get locations and activities from the right id
+      $fields = array();
+      $fields['locations'] = GetLocationInputs($init);
+      $fields['activities'] = GetActivityInputs($init);
+      return $fields;
+    } //end if correct initiative
+  } //end foreach initiative
+} //end function GetFormFields
 
-function GetLocationsQuery($initiative) {
-  $q = "SELECT `location`.`id` as loc_id,`location`.`title` as loc_title from `location`,`initiative` where `location`.`enabled` = '1' and `location`.`fk_parent` = `initiative`.`fk_root_location` and `initiative`.`id` = '$initiative'";
-  $r = mysql_query($q);
-  return ($r);
-} // end function GetLocationsQuery
-
-function GetLocations($initiative) {
-  $locs = array();
+function GetLocationInputs($init) {
   $location_inputs = "";
-  $r = GetLocationsQuery($initiative);
-  $field_count = mysql_num_rows($r);
-  while ($myrow = mysql_fetch_assoc($r)) {
-    extract($myrow);
-    $locs[$loc_id] = $loc_title;
-    $location_inputs .= "<label for=\"counts[$loc_id]\">$loc_title</label>\n";
-    $location_inputs .= "<input name=\"counts[$loc_id]\" type=\"text\" class=\"counts\"><br />\n";
-  } //end while locations
-  if ($field_count > 1) {
-    $location_inputs .= '<div id="display-counts">Total Counts: <span id="sum-counts"></span></div>'; 
-      }
+  // Get location info
+  foreach ($init->dictionary->locations as $loc) { 
+    $location_inputs .= '<label for="counts[' . $loc->id .']">'. $loc->title .'</label>' . PHP_EOL;
+    $location_inputs .= '<input name="counts[' . $loc->id .']" type="text" class="counts"><br />' . PHP_EOL;
+  } //end foreach location
+  return $location_inputs;
+}
 
-  return($location_inputs);
-} //end function GetLocations
+function GetActivityInputs($init) {
+  $activity_inputs = "";
+  // Get activity info by group
+  foreach ($init->dictionary->activityGroups as $ag) {
+    if ($ag->id > 0) { // negative numbers for non-activity
+      if (isset($ag->allowMulti)) {
+	if ($ag->allowMulti == 1) { //allow selection of more than one answer
+	  $multi = "multiple";
+	} 
+	else {
+	  $multi = "";
+	} //end if allow multiples
+      } 
+      else {
+	$multi = "";
+      }
+      
+      // Get activity options for this group
+      $opts = "";
+      
+      foreach ($init->dictionary->activities as $act) {
+	if ($act->activityGroup == $ag->id) {//end if associated with this group
+	  $opts .= ' <option value="' . $act->id . '">' . $act->title . '</option>' . PHP_EOL;
+	    }
+      } //end foreach activity
+      $activity_inputs .= '<h4>'.$ag->title.'</h4><select name="activities[]" '. $multi .'>' . $opts . '</select>' . PHP_EOL;
+    } //end if activity group is a positive number
+  } //end foreach activity group
+  return ($activity_inputs);
+} //end function GetActivityInputs
+
+
 
 
 function SelectInitiative() {

@@ -2,8 +2,9 @@
 include_once("config.php");
 include_once("scripts.php");
 $initiative = $_REQUEST['initiative'];
-$location_inputs = GetLocations($initiative); 
-$activity_inputs = GetActivities($initiative);
+$fields = GetFormFields($initiative);
+$location_inputs = $fields['locations'];
+$activity_inputs = $fields['activities'];;
 ?>
 
 
