@@ -7,7 +7,7 @@ $allow_direct_submit = true; // when this variable is set to true and the $sumas
 
 $sumaserver_url = ""; // full url with no trailing slash, e.g. http://www.example.com/sumaserver, see note about sumaserver security in README.md file
 
-$server_path = ""; // root-relative server path with no trailing slash, e.g. /docs/lib/suma
+$suma_path = ""; // root-relative server path with no trailing slash, e.g. /docs/lib/suma
 
 /* Debugging variables */
 $debug = false; //false; // set to true to get PHP's native error messages
