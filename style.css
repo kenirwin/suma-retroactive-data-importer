@@ -4,6 +4,8 @@ body { height: 100%; margin: 0; padding: 0; }
 #footer { position: absolute; bottom: 10; left: 0; height: 80px; padding: 10px}
 .alert { border: 3px solid red; padding: .15em .5em; border-radius: 1em; margin: .5em}
 
+
+//button code generated at: http://css3buttongenerator.com/
 .button {
   background: #3498db;
   background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
