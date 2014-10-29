@@ -2,17 +2,17 @@
 
   /*
 list of functions:
-    
-function Debug ($level = E_ALL) 
-function DisplayJSONOutput ($sessions_all) 
-function GenerateJSON($sessions_all, $pretty=true) 
-function GenerateOneSession($initiative,$start,$end,$counts,$activity_info=array()) 
-function GetFormFields ($init) 
-function GetLocationInputs($init) 
-function GetActivityInputs($init) 
-function HandleSubmission () 
-function SelectInitiative() 
-function SubmitJSON ($sessions_all) 
+
+function Debug ($level = E_ALL)
+function DisplayJSONOutput ($sessions_all)
+function GenerateJSON($sessions_all, $pretty=true)
+function GenerateOneSession($initiative,$start,$end,$counts,$activity_info=array())
+function GetFormFields ($init)
+function GetLocationInputs($init)
+function GetActivityInputs($init)
+function HandleSubmission ()
+function SelectInitiative()
+function SubmitJSON ($sessions_all)
   */
 
 
@@ -174,6 +174,39 @@ function HandleSubmission () {
   }
   print '</div><!-- id=submission-response -->';
 } //end function HandleSubmission
+
+function PostJSON ($url, $json) {
+  if (function_exists('curl_version')) {
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+					       'Content-Type: application/json', 
+					       'Content-Length: ' . strlen($json),
+					       'User-Agent: Suma-Import-Generator',
+					       )
+		); 
+    $result = curl_exec($ch);
+    return $result;
+  } //end if curl_version exists
+  else {
+    return "CURL is not available in this PHP installation";
+  }
+} //end function PostJSON
+
+function RenderMarkdown ($text) {
+  if (function_exists('curl_version')) {
+    $api="https://api.github.com/markdown";
+    $array = array ( "mode" => "markdown",
+		     "text" => $text
+		     );
+    $json = json_encode($array);
+    $html = PostJSON($api, $json);
+    return $html;
+  }
+  else { return "<pre>$text</pre>"; }
+}
 
 function SelectInitiative() {
   global $sumaserver_url; 
