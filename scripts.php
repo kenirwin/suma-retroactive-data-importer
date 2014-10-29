@@ -127,7 +127,14 @@ function GetActivityInputs($init) {
       else {
 	$multi = "";
       }
-      
+      if (isset($ag->required)) {
+	if ($ag->required == 1) {
+	  $require_text = 'class="required"';
+	}
+	else { $require_text = ''; }
+      }
+      else { $require_text = ''; }
+
       // Get activity options for this group
       $opts = "";
       
@@ -136,7 +143,7 @@ function GetActivityInputs($init) {
 	  $opts .= ' <option value="' . $act->id . '">' . $act->title . '</option>' . PHP_EOL;
 	    }
       } //end foreach activity
-      $activity_inputs .= '<h4>'.$ag->title.'</h4><select name="activities[]" '. $multi .'>' . $opts . '</select>' . PHP_EOL;
+      $activity_inputs .= '<h4 '.$require_text .'>'.$ag->title.'</h4><select name="activities[]" '. $multi .'>' . $opts . '</select>' . PHP_EOL;
     } //end if activity group is a positive number
   } //end foreach activity group
   return ($activity_inputs);
