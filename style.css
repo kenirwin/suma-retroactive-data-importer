@@ -1,6 +1,6 @@
 body { height: 100%; margin: 0; padding: 0; }
 #wrapper { min-height:100%; position: relative }
-#content { padding: 10px; padding-bottom: 80px }
+#content { padding-top: 0px; padding-left: 10px; padding-bottom: 100px }
 #footer { position: absolute; bottom: 10; left: 0; height: 80px; padding: 10px}
 .alert { border: 3px solid red; padding: .15em .5em; border-radius: 1em; margin: .5em}
 
