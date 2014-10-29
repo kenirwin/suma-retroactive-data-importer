@@ -31,7 +31,21 @@ $(document).ready(function() {
 			}); //end each count
 		      $("#sum-counts").html(total);
 		    }); //end keyup
+		  
+		  $("form").submit(function(e) {
+		      var errors = false;
+		      $(".required-field").each(function() {
+			  if ($(this).val() == "") {
+			    errors = true;
+			    $(this).addClass('highlight-field');
+			    e.preventDefault();
+			  }
+			});
+		      if (errors) {
+			alert ("Some required fields are empty!");
+		      }
 
+		    });
 		}); //end js-actions on successful AJAX load
 	} //end else if there's an initiative ID
       }); //end on selection of initiative from pulldown
