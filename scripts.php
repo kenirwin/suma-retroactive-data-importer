@@ -27,7 +27,7 @@ function Debug ($level = E_ALL) {
 function DisplayJSONOutput ($sessions_all) {
   global $sumaserver_url;
   //  print "<form action=\"$sumaserver_url/sync\" method=\"POST\">";
-  $alert = "<div class=\"alert\"><h3>JSON Output</h3><p>This copy of Suma Import Generator is not configured to submit directly into Suma. Instead, it will only display the correct JSON format, which you can submit into Suma's admininstrative interface. You can set Suma Import Generator to submit directly into your Suma instance by changing the <strong>&dollar;allow_direct_submit</strong> variable to <strong>true</strong> in <strong>config.php</strong></p></div>";
+  $alert = "<div class=\"alert\"><h3>JSON-Only Output</h3><p>This copy of Suma Import Generator is not configured to submit directly into Suma. Instead, it will only display the correct JSON format, which you can submit through Suma's admininstrative interface. You can set Suma Import Generator to submit directly into your Suma instance by changing the <strong>&dollar;allow_direct_submit</strong> variable to <strong>true</strong> in <strong>config.php</strong></p></div>";
   print $alert;
   print "<textarea name=\"json\" id=\"json-output\" cols=\"80\" rows=\"25\">";
   print (GenerateJSON($sessions_all));

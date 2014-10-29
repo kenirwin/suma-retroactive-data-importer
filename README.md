@@ -1,18 +1,14 @@
 # Suma Import Generator
 
-**Suma Import Generator** takes form input and output it as JSON-formatted data to be imported into **Suma: A Space Assessment Toolkit** (https://github.com/cazzerson/Suma). 
-
-## Disclaimer
-
-Suma itself is a beautifully-written piece of software written by a handful of coders. This import generator is quick hack *not* written by the Suma team, and does not directly integrate into Suma. Instead, it returns JSON formatted to be compatible with Suma's "Direct JSON Import" function. It could be a lot better, and improvements and contributions would be most welcome.
+**Suma Import Generator** is a tool for retroactively submitting data into **Suma: A Space Assessment Toolkit** (https://github.com/cazzerson/Suma). Suma is a space usage/statistics package; it is natively intended for real-time data submission. This import generator allows the user to input data hours, days, weeks, or even years after the fact. 
 
 ## Demo
 
-See a demo of the Suma Import Generator functionality at: http://www6.wittenberg.edu/lib/ken/demo/suma-import-generator
+See a demo of the Suma Import Generator functionality at: http://www6.wittenberg.edu/lib/ken/demo/suma-import-generator . Note: Suma Import Generator sends data directly into Suma; the demo disables the direct submission feature and instead only shows the JSON-formatted data required to complete the submission. Suma Import Generator would typically be configured to send the data directly into Suma.
 
 ## Installation
 
-Install the Suma Import Generator in a folder *outside* of the main Suma web space. Copy the config-sample.php file to be config.php, then configure the config.php file with information to connect to your Suma MySQL server. 
+Install the Suma Import Generator in a folder *outside* of the main Suma web space. Copy the config-sample.php file to be config.php, then configure the config.php file with the URL for your Suma Server. 
 
 ### Suma Server Security
 
@@ -37,9 +33,8 @@ This tool is set up to take head-count data from essentially a single moment / a
 * inputing time, date, locations, and counts are set by the user on the input web page (index.php), eg: Date: 2014-09-04; Time: 9:30pm; Locations: First, Second, Third Floors; Date: 2014-09-04 [Demo Data #1]
 * multiple 'activities' (using Suma's term): e.g. a **Reference** question answered by a **librarian** over the **phone** in **under a minute**, at the **Reference desk**; Time: 9:30pm; Date: 2014-09-04 [Demo Data #2] 
 
-Using this input, the Suma Import Generator creates JSON data formatted for input using Suma's built-in "Direct JSON Import" function in the sumaserver/admin panel. The import format is described here: https://github.com/cazzerson/Suma/issues/17 
+Using this input, the Suma Import Generator creates JSON formatted data and submits it using Suma's API. The JSON format it uses is describe here: https://github.com/cazzerson/Suma/issues/17 
 
-The import generator only creates JSON data to be copied and pasted into Suma's Direct JSON Import tool -- it does **not** submit data to Suma.
 
 ## Demo
 
@@ -54,3 +49,4 @@ You can see some test output from the demos described above:
 ## Credits
 
 * Ken Irwin (kirwin AT wittenberg DOT edu) - initial creator
+* Bret Davidson -- co-creator of the original Suma project and advisor/consultant for the Suma Import Generator 
