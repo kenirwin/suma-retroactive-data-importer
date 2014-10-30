@@ -32,18 +32,36 @@ $(document).ready(function() {
 		      $("#sum-counts").html(total);
 		    }); //end keyup
 		  
-		  $("form").submit(function(e) {
+		  // validate required fields on submission
+		  $("form").submit(function(e) { 
 		      var errors = false;
+		      var msgSpecs = "";
 		      $(".required-field").each(function() {
 			  if ($(this).val() == "" || $(this).val() == null) {
 			    errors = true;
+			    msgSpecs += "\r\n * Missing field: " + $(this).attr('name');
 			    $(this).addClass('highlight-field');
-			    e.preventDefault();
 			  } //end if no value in required field
 			});
 		      
+		      // #counts-block must have at least one value
+		      var atLeastOneCount = false;
+		      $(".counts").each(function() {
+			  if ($(this).val() != "" && $(this)>val() != null) {
+			    atLeastOneCount = true;
+			  }
+			});
+		      if (atLeastOneCount == false) {
+			$("#counts-block").addClass('highlight-field');
+			errors = true;
+			msgSpecs += "\r\n * You must enter at least one count";
+		      }
+
+		      // if errors, display message and prevent submission
 		      if (errors) {
-			alert ("Some required fields are empty/unselected!");
+			e.preventDefault();
+			var msg = "Some required fields are empty/unselected!" + msgSpecs;
+			alert (msg);
 		      }
 		      
 		    });

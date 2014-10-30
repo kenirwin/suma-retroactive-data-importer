@@ -97,7 +97,7 @@ function GetFormFields ($init) {
 } //end function GetFormFields
 
 function GetLocationInputs($init) {
-  $location_inputs = "";
+  $location_inputs = '<div id="counts-block">' . PHP_EOL;
   $field_count = 0;
   // Get location info
   foreach ($init->dictionary->locations as $loc) { 
@@ -108,6 +108,7 @@ function GetLocationInputs($init) {
   if ($field_count > 1) {
     $location_inputs .= '<div id="display-counts">Total Counts: <span id="sum-counts"></span></div>'. PHP_EOL;
   } //end if more than one location field
+  $location_inputs .= '</div><!-- id=counts-block -->' . PHP_EOL;
   return $location_inputs;
 }
 
