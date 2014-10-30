@@ -123,13 +123,14 @@ function GetActivityInputs($init) {
       if (isset($ag->allowMulti)) {
 	if ($ag->allowMulti == 1) { //allow selection of more than one answer
 	  $multi = "multiple";
+	  $multiNote = " - <em>(Ctrl-click to select multiple answers)</em>";
 	} 
 	else {
-	  $multi = "";
+	  $multi = $multiNote = "";
 	} //end if allow multiples
       } 
       else {
-	$multi = "";
+	$multi = $multiNote = "";
       }
       if (isset($ag->required)) {
 	if ($ag->required == 1) {
@@ -148,11 +149,11 @@ function GetActivityInputs($init) {
 	  $opts .= ' <option value="' . $act->id . '">' . $act->title . '</option>' . PHP_EOL;
 	    }
       } //end foreach activity
-      $activity_inputs .= '<h4 '.$require_text .'>'.$ag->title.'</h4><select name="'.$domID.'[]" id="'.$domID.'" '. $multi .' '. $require_field .'>' . $opts . '</select>' . PHP_EOL;
+      $activity_inputs .= '<h4 '.$require_text .'>'.$ag->title. ' ' . $multiNote . '</h4><select name="'.$domID.'[]" id="'.$domID.'" '. $multi .' '. $require_field .'>' . $opts . '</select>' . PHP_EOL;
       array_push($activityGroupNames, $domID);
     } //end if activity group is a positive number
   } //end foreach activity group
-  $activity_inputs .= '<input type="hidden" name="activity_group_names" value="'.implode(';', $activityGroupNames).'" />';
+  if (sizeof($activityGroupNames)>0) { $activity_inputs .= '<input type="hidden" name="activity_group_names" value="'.implode(';', $activityGroupNames).'" />'; }
 
   return ($activity_inputs);
 } //end function GetActivityInputs
