@@ -113,9 +113,12 @@ function GetLocationInputs($init) {
 
 function GetActivityInputs($init) {
   $activity_inputs = "";
+  $activityGroupNames = array(); 
+
   // Get activity info by group
   foreach ($init->dictionary->activityGroups as $ag) {
     if ($ag->id > 0) { // negative numbers for non-activity
+      $domID = strtolower(preg_replace("/[^a-zA-Z0-9]+/","_",$ag->title));
       if (isset($ag->allowMulti)) {
 	if ($ag->allowMulti == 1) { //allow selection of more than one answer
 	  $multi = "multiple";
@@ -144,9 +147,12 @@ function GetActivityInputs($init) {
 	  $opts .= ' <option value="' . $act->id . '">' . $act->title . '</option>' . PHP_EOL;
 	    }
       } //end foreach activity
-      $activity_inputs .= '<h4 '.$require_text .'>'.$ag->title.'</h4><select name="activities[]" '. $multi .' '. $require_field .'>' . $opts . '</select>' . PHP_EOL;
+      $activity_inputs .= '<h4 '.$require_text .'>'.$ag->title.'</h4><select name="'.$domID.'[]" id="'.$domID.'" '. $multi .' '. $require_field .'>' . $opts . '</select>' . PHP_EOL;
+      array_push($activityGroupNames, $domID);
     } //end if activity group is a positive number
   } //end foreach activity group
+  $activity_inputs .= '<input type="hidden" name="activity_group_names" value="'.implode(';', $activityGroupNames).'" />';
+
   return ($activity_inputs);
 } //end function GetActivityInputs
 
@@ -160,13 +166,16 @@ function HandleSubmission () {
   $end = $start + (60*5); //add five minutes
   $counts = $_REQUEST['counts'];
   $initiative = intval($_REQUEST['initiative']);
-  
-  if (isset($_REQUEST['activities'])) {
+
+  if (isset($_REQUEST['activity_group_names'])) {
     $activity_info = array();
-    foreach ($_REQUEST['activities'] as $v) {
-      array_push( $activity_info, intval($v));
-    }
-  }
+    $agNames = preg_split("/;/", $_REQUEST['activity_group_names']);
+    foreach ($agNames as $group) {
+      foreach($_REQUEST[$group] as $k=>$v) {
+	array_push($activity_info, intval($v));
+      } //end foreach activity value in group
+    } //end foreach activity group
+  }//end if isset activityGroupNames
   else { $activity_info = array ();} 
   
   $session_array = GenerateOneSession($initiative, $start, $end, $counts, $activity_info);
