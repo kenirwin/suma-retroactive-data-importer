@@ -18,5 +18,5 @@ $activity_inputs = $fields['activities'];;
 <h4 class="required">Counts by location</h4>
     <?php echo($location_inputs); ?>
 <?php echo($activity_inputs);?>
-<br />   <input type="submit" />
+<br />   <input type="submit" name="submit-suma-importer" />
 </form>
