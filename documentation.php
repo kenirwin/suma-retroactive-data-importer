@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Documentation - Suma Import Generator</title>
+<title>Documentation - Suma Retroactive Data Importer</title>
 <link rel="stylesheet" type="text/css" href="style.css">
 <style>
    body { margin: .5em; }
@@ -9,7 +9,7 @@
 
 <body>
 
-<h1>Suma Import Generator - Documentation</h1>
+<h1>Suma Retroactive Data Importer - Documentation</h1>
 <p><a href="./" class="button">Return to main page</a></p>
 
 <?

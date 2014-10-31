@@ -1,10 +1,10 @@
 <html>
 <?php
 include_once("config.php"); //handles mysql_connect session
-include_once("scripts.php"); //main functions driving Suma Import Generator
+include_once("scripts.php"); //main functions driving Suma Retroactive Data Importer
 ?>
 <head>
-<title>Suma Import Generator</title>
+<title>Suma Retroactive Data Importer</title>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
 <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" type="text/css"/>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js" type="text/javascript"></script>
@@ -15,7 +15,7 @@ include_once("scripts.php"); //main functions driving Suma Import Generator
 <body>
 <div id="wrapper">
 <div id="content">
-<h1>Suma Import Generator</h1>
+<h1>Suma Retroactive Data Importer</h1>
   <p><a href="documentation.php" class="button">Documentation</a></p>
 <?php
   // show initiative pulldown selector (always)
