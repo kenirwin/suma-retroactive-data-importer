@@ -26,13 +26,12 @@ include_once("scripts.php"); //main functions driving Suma Import Generator
 
   <?php
   //if submission, display JSON or submit to suma
-  if (isset($_REQUEST['date']) && isset($_REQUEST['time']) && is_array($_REQUEST['counts'])) {
+if (isset($_REQUEST['submit-suma-importer'])) {
+  if (ValidateSubmission()) {
     HandleSubmission();
-  } //end if submission
-elseif (isset($_REQUEST['submit-suma-importer'])) {
-  //if submission not meeting all requirements
-  print '<div class="alert" id="submission-response"><h3>Cannot Submit Data</h3><p>Submission requires at least a date, time, and one count. Please try again.</p>';
-    } //end elseif bad submission
+  }  
+} //end if data submitted
+
 print "</div><!--id=content-->\n";
 
 print '<div id="footer">';

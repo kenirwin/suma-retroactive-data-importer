@@ -13,6 +13,7 @@ function GetActivityInputs($init)
 function HandleSubmission ()
 function SelectInitiative()
 function SubmitJSON ($sessions_all)
+function ValidateSubmission()
   */
 
 
@@ -265,6 +266,46 @@ function SubmitJSON ($sessions_all) {
   }
 } //end function SubmitJSON
 
+function ValidateSubmission(){
+  $submit_errors = false;
+  $display_errors = "";
+  if (! isset($_REQUEST['initiative'])) { 
+    $submit_errors = true;
+    $display_errors .= "<li>missing <strong>initiative</strong></li>\n";
+  }
+  elseif (! is_numeric($_REQUEST['initiative'])) { 
+    $submit_errors = true;
+    $display_errors .= "<li><strong>initiative</strong> is not a number</li>\n";
+  }
+  if (! isset($_REQUEST['date'])) { 
+    $submit_errors = true;
+    $display_errors .= "<li>missing <strong>date</strong></li>\n";
+  }
+  elseif (($timestamp = strtotime($_REQUEST['date'])) === false || (($timestamp = strtotime($_REQUEST['date'])) === -1)) {
+    $submit_errors = true;
+    $display_errors .= "<li><strong>date</strong> doesn't look like a valid date</li>\n";
+  }
+  if (! isset($_REQUEST['time'])) {
+    $submit_errors = true;
+    $display_errors .= "<li>missing <strong>time</strong></li>\n";
+  }
+  // validate time by concatenating "$time + yesterday" -- if that converts to a valid timestamp, it's probably ok
+  elseif (($timestamp = strtotime($_REQUEST['time'] . " yesterday")) === false || (($timestamp = strtotime($_REQUEST['time'] . " yesterday")) === -1)) {
+    $submit_errors = true; 
+    $display_errors .= "<li><strong>time</strong> doesn't look like a valid time</li>\n";
+  }
+  if (! is_array($_REQUEST['counts'])) {
+    $submit_errors = true;
+    $display_errors .= "<li>missing <strong>locations counts</strong></li>\n";
+  }
 
+  if ($submit_errors) {
+    print '<div class="alert" id="submission-response"><h3>Cannot Submit Data - Missing or Invalid Data</h3><ul id="submission-errors">' . $display_errors . '</ul>' . PHP_EOL;
+    return false;
+  }
+  else {
+    return true;
+  }
+} //end function ValidateSubmission
 
 ?>
