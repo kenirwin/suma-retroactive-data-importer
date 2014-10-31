@@ -230,12 +230,12 @@ function RenderMarkdown ($text) {
 
 function SelectInitiative() {
   global $sumaserver_url; 
-  $url = $sumaserver_url . "/query/initiatives";
+  $url = $sumaserver_url . "/clientinit";
   $response = json_decode(file_get_contents($url));
   
   $opts = " <option value=\"\">Select an initiative</option>\n";
   foreach ($response as $init) {
-    $opts.=' <option value="'. $init->id .'">'. $init->title .'</option>\n';
+    $opts.=' <option value="'. $init->initiativeId .'">'. $init->initiativeTitle .'</option>\n';
   }
   $select = "<label for=\"initiative\">Initiative</label> <select name=\"initiative\" id=\"initiative-selector\">\n$opts</select>\n";
   
