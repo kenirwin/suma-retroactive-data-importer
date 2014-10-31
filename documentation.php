@@ -2,9 +2,13 @@
 <head>
 <title>Documentation - Suma Import Generator</title>
 <link rel="stylesheet" type="text/css" href="style.css">
+<style>
+   body { margin: .5em; }
+</style>
 </head>
 
 <body>
+
 <h1>Suma Import Generator - Documentation</h1>
 <p><a href="./" class="button">Return to main page</a></p>
 

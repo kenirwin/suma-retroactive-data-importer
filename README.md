@@ -49,4 +49,6 @@ You can see some test output from the demos described above:
 ## Credits
 
 * Ken Irwin (kirwin AT wittenberg DOT edu) - initial creator
-* Bret Davidson -- co-creator of the original Suma project and advisor/consultant for the Suma Import Generator 
+
+## Acknowledgements
+* Jason Casden & Bret Davidson are the project lead and technical lead for the original Suma project. They have both been very helpful in encouraging and facilitating work on the Suma Import Generator. Special thanks to Bret for some extra help understanding the Suma API.
