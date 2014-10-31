@@ -163,11 +163,11 @@ function GetActivityInputs($init) {
 function HandleSubmission () {
   global $allow_direct_submit;
   $sessions_all = array();
+  $counts = $_REQUEST['counts'];
   $date = $_REQUEST['date'];
   $time = $_REQUEST['time'];
   $start = strtotime("$date $time");
-  $end = $start + (60*5); //add five minutes
-  $counts = $_REQUEST['counts'];
+  $end = $start + array_sum($counts) + 60; //one second per count, plus one minute
   $initiative = intval($_REQUEST['initiative']);
 
   if (isset($_REQUEST['activity_group_names'])) {
