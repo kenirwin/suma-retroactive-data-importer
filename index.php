@@ -1,77 +1,15 @@
+<html>
 <?php
 include_once("config.php"); //handles mysql_connect session
-include_once("scripts.php");
+include_once("scripts.php"); //main functions driving Suma Import Generator
 ?>
 <head>
 <title>Suma Import Generator</title>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" />
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
- <script>
-$(document).ready(function() {
-    $("select").change(function() {
-	$("#submission-response").hide();
-	var initID = $(this).val();
-	if (initID == "") {
-	  $("#details-form").html("");
-	}
-	else {
-	  $.get("load_fields.php", { initiative: initID })
-	      .done(function(data) {
-		  $("#details-form").html(data); // load form fields
-		  $("#datepicker").datepicker(); //trigger datepicker
-
-		  // for counts with more than one location, display 
-		  // sum of all location counts
-		  $(".counts").bind("keyup", function () {
-		      var total = 0;
-		      $(".counts").each(function(e) {
-			  tmpVal = $(this).val();
-			  total += Number(tmpVal);
-			}); //end each count
-		      $("#sum-counts").html(total);
-		    }); //end keyup
-		  
-		  // validate required fields on submission
-		  $("form").submit(function(e) { 
-		      var errors = false;
-		      var msgSpecs = "";
-		      $(".required-field").each(function() {
-			  if ($(this).val() == "" || $(this).val() == null) {
-			    errors = true;
-			    msgSpecs += "\r\n * Missing field: " + $(this).attr('name');
-			    $(this).addClass('highlight-field');
-			  } //end if no value in required field
-			});
-		      
-		      // #counts-block must have at least one value
-		      var atLeastOneCount = false;
-		      $(".counts").each(function() {
-			  if ($(this).val() != "" && $(this)>val() != null) {
-			    atLeastOneCount = true;
-			  }
-			});
-		      if (atLeastOneCount == false) {
-			$("#counts-block").addClass('highlight-field');
-			errors = true;
-			msgSpecs += "\r\n * You must enter at least one count";
-		      }
-
-		      // if errors, display message and prevent submission
-		      if (errors) {
-			e.preventDefault();
-			var msg = "Some required fields are empty/unselected!" + msgSpecs;
-			alert (msg);
-		      }
-		      
-		    });
-		}); //end js-actions on successful AJAX load
-	} //end else if there's an initiative ID
-      }); //end on selection of initiative from pulldown
-  }); //end document ready
-
-</script>
-<link rel="stylesheet" type="text/css" href="style.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" type="text/css"/>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js" type="text/javascript"></script>
+<script src="onload.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="style.css" type="text/css" />
 </head>
 
 <body>
@@ -80,15 +18,21 @@ $(document).ready(function() {
 <h1>Suma Import Generator</h1>
   <p><a href="documentation.php" class="button">Documentation</a></p>
 <?php
+  // show initiative pulldown selector (always)
   print(SelectInitiative());
 ?>
 
 <div id="details-form"></div>
 
-<?php
+  <?php
+  //if submission, display JSON or submit to suma
   if (isset($_REQUEST['date']) && isset($_REQUEST['time']) && is_array($_REQUEST['counts'])) {
     HandleSubmission();
   } //end if submission
+elseif (isset($_REQUEST['submit-suma-importer'])) {
+  //if submission not meeting all requirements
+  print '<div class="alert" id="submission-response"><h3>Cannot Submit Data</h3><p>Submission requires at least a date, time, and one count. Please try again.</p>';
+    } //end elseif bad submission
 print "</div><!--id=content-->\n";
 
 print '<div id="footer">';
@@ -98,4 +42,4 @@ print "</div><!--id=wrapper-->\n";
 
 ?>
 </body>
-
+</html>
