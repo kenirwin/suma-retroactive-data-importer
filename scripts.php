@@ -232,15 +232,20 @@ function RenderMarkdown ($text) {
 function SelectInitiative() {
   global $sumaserver_url; 
   $url = $sumaserver_url . "/clientinit";
-  $response = json_decode(file_get_contents($url));
+  if ($json = file_get_contents($url)) {
+    $response = json_decode($json);
   
-  $opts = " <option value=\"\">Select an initiative</option>\n";
-  foreach ($response as $init) {
-    $opts.=' <option value="'. $init->initiativeId .'">'. $init->initiativeTitle .'</option>\n';
-  }
-  $select = "<label for=\"initiative\">Initiative</label> <select name=\"initiative\" id=\"initiative-selector\">\n$opts</select>\n";
+    $opts = " <option value=\"\">Select an initiative</option>\n";
+    foreach ($response as $init) {
+      $opts.=' <option value="'. $init->initiativeId .'">'. $init->initiativeTitle .'</option>\n';
+    }
+    $select = "<label for=\"initiative\">Initiative</label> <select name=\"initiative\" id=\"initiative-selector\">\n$opts</select>\n";
+    return ($select);
+  } //end if good response
+  else { 
+    return '<div class="alert"><h3>Unable to connect to Suma Server</h3><p>Unable to connect to the Suma Server using the url defined as <strong>$sumaserver_url = '.$sumaserver_url.'</strong> in the <strong>config.php</strong> file. Please check this url.</p> <p>A useful test of correctness is this: if you can add <strong>/clientinit</strong> to the url, you should get a list of your suma initiatives, e.g. <a href="'.$url.'">'.$url.'</a>.' . PHP_EOL;
+  } //end if unable to reach sumaserver
   
-  return ($select);
 } //end function SelectInitiative
 
 function SubmitJSON ($sessions_all) {

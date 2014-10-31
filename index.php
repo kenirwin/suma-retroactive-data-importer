@@ -19,7 +19,16 @@ include_once("scripts.php"); //main functions driving Suma Retroactive Data Impo
   <p><a href="documentation.php" class="button">Documentation</a></p>
 <?php
   // show initiative pulldown selector (always)
+
+  if (! is_readable("config.php")) {
+    print '<div class="alert"><h3>Config file not readable</h3><p>The file <strong>config.php</strong> is not present or not readable. Please copy the file <strong>config-sample.php</strong> to <strong>config.php</strong> and add your local Suma Server URL to activate this service.</p></div>';
+  }
+elseif (! isset($sumaserver_url) || ($sumaserver_url == "")){
+  print '<div class="alert"><h3>$sumaserver_url not set</h3><p>The <strong>$sumaserver_url</strong> variable in <strong>config.php</strong> is not set. Please set this variable in order to use the service.</p></div>.';
+}
+else {
   print(SelectInitiative());
+}
 ?>
 
 <div id="details-form"></div>
