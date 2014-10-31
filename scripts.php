@@ -196,6 +196,7 @@ function HandleSubmission () {
 } //end function HandleSubmission
 
 function PostJSON ($url, $json) {
+  include ("config.php");
   if (function_exists('curl_version')) {
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
@@ -204,7 +205,7 @@ function PostJSON ($url, $json) {
     curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 					       'Content-Type: application/json', 
 					       'Content-Length: ' . strlen($json),
-					       'User-Agent: Suma-Import-Generator',
+					       'User-Agent: ' . $device,
 					       )
 		); 
     $result = curl_exec($ch);
