@@ -10,9 +10,11 @@ See a demo of the Suma Retroactive Data Importer functionality at: http://www6.w
 
 Install the Suma Retroactive Data Importer in a folder *outside* of the main Suma web space. Copy the **config-sample.php** file to be **config.php**, then configure the **config.php** file with the URL for your Suma Server (usually named "sumaserver".) 
 
-### Suma Server Security
+### Security
 
-This program takes advantage of the fact that Suma allows submission of JSON-formatted requests directly via an HTTP call. It would be wise, though not strictly necessary, to restrict Suma Server access. To do this, add a few lines to the **.htaccess** file in your **sumaserver** directory (this is in the filespace for the main Suma project):
+Suma Retroactive Data Importer should be installed in a secure directory, as anyone with access to the page will be able to submit data directly into Suma. Consult your system adminitstrator for the most sensible access restriction in your environment. 
+
+This program takes advantage of the fact that Suma allows submission of JSON-formatted requests directly via an HTTP call. It would be wise, though not strictly necessary, to restrict Suma Server access as well. Since calls to the Suma Server will be made in the background, password-restricted access is unsuitable. IP-based access restrictions will be more effective. To do this, add a few lines to the **.htaccess** file in your **sumaserver** directory (this is in the filespace for the main Suma project):
 ```
 # ALLOW USER BY IP
 <Limit GET POST>
