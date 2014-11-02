@@ -29,7 +29,7 @@ The sumaserver URL needs to be accessible by the web/tablet client as well, so i
 
 ## Usage
 
-This tool is set up to take head-count data from essentially a single moment / a few minutes from multiple locations. Suma allows many different kinds of counts and this import generator may not support all of them. This tool is currently set up to support:
+Suma allows many different kinds of counts and this import generator may not support all of them. This tool is currently set up to support:
 * input from multiple initiatives
 * multiple counts from one time slot at multiple locations. 
 * inputing time, date, locations, and counts are set by the user on the input web page (index.php), eg: Date: 2014-09-04; Time: 9:30pm; Locations: First, Second, Third Floors; Date: 2014-09-04 [Demo Data #1]
