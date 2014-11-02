@@ -26,6 +26,9 @@ $activity_inputs = $fields['activities'];;
   <label for="json-only">Output JSON-formatted data, but do not submit to Suma</label>
 <?php
 							      }
+else { //if allow_direct_submit == false
+  print(AlertJSONOnly ());
+}
 ?>
 <br />   <input type="submit" name="submit-suma-importer" />
 </form>

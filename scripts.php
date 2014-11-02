@@ -3,6 +3,7 @@
   /*
 list of functions:
 
+function AlertJSONOnly ()
 function Debug ($level = E_ALL)
 function DisplayJSONOutput ($sessions_all)
 function GenerateJSON($sessions_all, $pretty=true)
@@ -20,6 +21,11 @@ function ValidateSubmission()
   // if config $debug is true, turn it on
 if ($debug) { Debug ($debug_level); } 
 
+function AlertJSONOnly () {
+    $alert = "<div class=\"alert\"><h3>JSON-Only Output</h3><p>This copy of Suma Retroactive Data Importer is not configured to submit directly into Suma. Instead, it will only display the correct JSON format, which you can submit through Suma's admininstrative interface. You can set Suma Retroactive Data Importer to submit directly into your Suma instance by changing the <strong>&dollar;allow_direct_submit</strong> variable to <strong>true</strong> in <strong>config.php</strong></p></div>";
+    return $alert;
+}
+
 function Debug ($level = E_ALL) {
   error_reporting($level);
   ini_set("display_errors", true);
@@ -28,8 +34,7 @@ function Debug ($level = E_ALL) {
 function DisplayJSONOutput ($sessions_all) {
   global $sumaserver_url;
   //  print "<form action=\"$sumaserver_url/sync\" method=\"POST\">";
-  $alert = "<div class=\"alert\"><h3>JSON-Only Output</h3><p>This copy of Suma Retroactive Data Importer is not configured to submit directly into Suma. Instead, it will only display the correct JSON format, which you can submit through Suma's admininstrative interface. You can set Suma Retroactive Data Importer to submit directly into your Suma instance by changing the <strong>&dollar;allow_direct_submit</strong> variable to <strong>true</strong> in <strong>config.php</strong></p></div>";
-  print $alert;
+  print(AlertJSONOnly());
   print "<textarea name=\"json\" id=\"json-output\" cols=\"80\" rows=\"25\">";
   print (GenerateJSON($sessions_all));
   print "</textarea><br />\n";
@@ -188,7 +193,7 @@ function HandleSubmission () {
   print '<div id="submission-response">';
 
   // disable direct submit if user checked json-only box
-  if ($_REQUEST['json-only'] == "on") {
+  if (isset($_REQUEST['json-only']) && $_REQUEST['json-only'] == "on") {
     $allow_direct_submit = false;
   }
 
