@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $("select").mouseup(function() {
+    $("select").bind("mouseup change", function() {
 	$("#submission-response").hide();
 	var initID = $(this).val();
 	if (initID == "") {
