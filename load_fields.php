@@ -18,5 +18,14 @@ $activity_inputs = $fields['activities'];;
 <h4 class="required">Counts by location</h4>
     <?php echo($location_inputs); ?>
 <?php echo($activity_inputs);?>
+
+<?php if ($allow_direct_submit) {
+  //if allow direct submit is on, allow user to disable it for this submission
+?>
+<br />   <input type="checkbox" name="json-only" /> 
+  <label for="json-only">Output JSON-formatted data, but do not submit to Suma</label>
+<?php
+							      }
+?>
 <br />   <input type="submit" name="submit-suma-importer" />
 </form>

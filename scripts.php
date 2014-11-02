@@ -186,6 +186,12 @@ function HandleSubmission () {
   array_push ($sessions_all, $session_array);
   
   print '<div id="submission-response">';
+
+  // disable direct submit if user checked json-only box
+  if ($_REQUEST['json-only'] == "on") {
+    $allow_direct_submit = false;
+  }
+
   if ($allow_direct_submit) { 
     SubmitJSON ($sessions_all);
   }
