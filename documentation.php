@@ -12,7 +12,7 @@
 <h1>Suma Retroactive Data Importer - Documentation</h1>
 <p><a href="./" class="button">Return to main page</a></p>
 
-<?
+<?php
 include ("scripts.php");
 $file =  file_get_contents("README.md");
 
