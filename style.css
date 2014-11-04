@@ -6,6 +6,17 @@ a, a:hover, a:visited { color: #4183c4 }
 .alert { border: 3px solid red; padding: .15em .5em; border-radius: 1em; margin: .5em}
 .highlight-field { border: 1px solid red; }
 .required::after { content: "*"; color: red}
+
+
+/* documentation page styling, modeled after GitHub */
+body#documentation { 
+    margin: 2em 10em 0em 5em; 
+    border: 1px solid #eee;
+}
+#documentation h1, #documentation h2, #documentation h3, #documentation h4, #documentation h5, #documentation h6 { border-bottom: 1px solid #eee; padding-bottom: 0.3em }
+
+
+
 /* button code generated at: http://css3buttongenerator.com/ */
 .button {
   background: #3498db;
