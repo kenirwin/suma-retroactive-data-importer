@@ -5,7 +5,8 @@
 </head>
 
 <body id="documentation">
-
+<div id="wrapper">
+<div id="content">
 <h1>Suma Retroactive Data Importer - Documentation</h1>
 <p><a href="./" class="button">Return to main page</a></p>
 
@@ -18,7 +19,12 @@ $lines = explode("\n", $file);
 $file = implode("\n", array_slice($lines, 2));
 
 print (RenderMarkdown($file));
-include ("license.php");
+print "</div><!--id=content-->\n";
+
+print '<div id="footer">';
+include("license.php");
+print "</div><!--id=footer-->\n";
+print "</div><!--id=wrapper-->\n";
 ?>
 </body>
 </html>
